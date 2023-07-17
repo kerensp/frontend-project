@@ -8,6 +8,6 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Poppins", "Roboto", '"Segoe UI"'].join(","),
+    fontFamily: ['Poppins', 'Roboto', '"Segoe UI"'].join(','),
   },
 });
