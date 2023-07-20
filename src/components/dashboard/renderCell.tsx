@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Avatar, Typography, Button, Box, IconButton } from '@mui/material';
+import { Avatar, Typography, Button, } from '@mui/material';
 import { GridRenderCellParams } from '@mui/x-data-grid';
 import { theme } from '../../utils';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Row from '../../types/custom';
+
 
 export const renderCellName = (rowData: GridRenderCellParams) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
@@ -27,6 +24,7 @@ export const renderCellName = (rowData: GridRenderCellParams) => (
     </Typography>
   </div>
 );
+
 export const renderCellForState = (rowData: GridRenderCellParams) => (
   <Button
     variant='contained'
@@ -39,6 +37,7 @@ export const renderCellForState = (rowData: GridRenderCellParams) => (
     {rowData.row.status}
   </Button>
 );
+
 export const renderCellForRols = (rowData: GridRenderCellParams) => (
   <div style={{ display: 'flex', gap: 5 }}>
     {rowData.row.rols.map((rol: string, i: number) => (
@@ -63,22 +62,3 @@ export const renderCellForRols = (rowData: GridRenderCellParams) => (
     ))}
   </div>
 );
-
-interface CellRendererProps {
-  row: Row;
-  onEditRow: (id: number) => void;
-  onDeleteRow: (id: number) => void;
-}
-
-export const renderCell = ({ row, onEditRow, onDeleteRow }: CellRendererProps) => {
-  return (
-    <div>
-      <IconButton onClick={() => onEditRow(row.id)}>
-        <EditIcon />
-      </IconButton>
-      <IconButton onClick={() => onDeleteRow(row.id)}>
-        <DeleteIcon />
-      </IconButton>
-    </div>
-  );
-};

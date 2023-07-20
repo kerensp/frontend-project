@@ -7,8 +7,8 @@ import Row from '../../types/custom';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import CreateDate from './createDate';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const StyledDataGrid = styled(DataGrid)({
@@ -37,6 +37,7 @@ const StyledDataGrid = styled(DataGrid)({
 
 
 export default function BasicEditingGrid() {
+
   const [rows, setRows] = React.useState<Row[]>([
     {
       id: 1,
@@ -45,7 +46,7 @@ export default function BasicEditingGrid() {
       tel: '+53 55555555',
       status: 'Activo',
       rols: ['Usuario', 'Super Admin'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-06-02T20:43:32'),
     },
     {
       id: 2,
@@ -118,12 +119,105 @@ export default function BasicEditingGrid() {
 
   const [filterValue, setFilterValue] = React.useState('');
 
-  const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilterChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterValue(event.target.value);
-  };
-
+  }, []);
+  
   const filteredRows = rows.filter((row) => row.name.toLowerCase().includes(filterValue.toLowerCase()));
+  
+  const handleDelete = React.useCallback((id: number) => {
+    const updatedRows = rows.filter((row) => row.id !== id);
+    setRows(updatedRows);
+  }, [rows]);
 
+  interface ActionsCellProps {
+    id: number;
+    onDelete: (id: number) => void;
+  }
+  
+  function ActionsCell({ id, onDelete: onDelete }: ActionsCellProps) {
+    return (
+      <>
+        <IconButton aria-label="editar">
+          <EditIcon />
+        </IconButton>
+        <IconButton aria-label="eliminar" onClick={() => onDelete(id)}>
+          <DeleteIcon />
+        </IconButton>
+      </>
+    );
+  }
+
+  const columns: GridColDef[] = [
+    {
+      field: 'name',
+      headerName: 'Nombre de usuario',
+      align: 'left',
+      headerAlign: 'left',
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      renderCell: renderCellName,
+    },
+    {
+      field: 'email',
+      headerName: 'Correo electrónico',
+      align: 'left',
+      headerAlign: 'left',
+      flex: 1,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: 'cel',
+      headerName: 'Teléfono',
+      align: 'left',
+      headerAlign: 'left',
+      flex: 0.6,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: 'status',
+      headerName: 'Estado',
+      align: 'left',
+      headerAlign: 'left',
+      flex: 0.5,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: 'rol',
+      headerName: 'Roles',
+      align: 'left',
+      headerAlign: 'left',
+      flex: 1,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: 'dateCreated',
+      headerName: 'Fecha de creación',
+      type: 'dateTime',
+      flex: 0.7,
+      sortable: false,
+      filterable: false,
+    },
+    {
+      field: 'actions',
+      headerName: 'Acciones',
+      align: 'center',
+      headerAlign: 'left',
+      flex: 0.5,
+      sortable: false,
+      filterable: false,
+      renderCell: (params: GridCellParams) => (
+        <ActionsCell id={params.row.id} onDelete={handleDelete} />
+      ),
+    },
+  ];
+  
+  
   return (
     <div>
       <Box sx={{ display: 'flex', flexDirection: 'row', mt: '40px' }}>
@@ -175,76 +269,9 @@ export default function BasicEditingGrid() {
         disableColumnMenu
         disableColumnFilter
         pageSizeOptions={[10, 25, 50, 100]}
-        rowCount={15}
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+        disableRowSelectionOnClick
       />
     </div>
   );
 }
-
-
-const columns: GridColDef[] = [
-  {
-    field: 'name',
-    headerName: 'Nombre de usuario',
-    align: 'left',
-    headerAlign: 'left',
-    flex: 1,
-    sortable: false,
-    filterable: false,
-    renderCell: renderCellName,
-  },
-  {
-    field: 'email',
-    headerName: 'Correo electrónico',
-    align: 'left',
-    headerAlign: 'left',
-    flex: 1,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'cel',
-    headerName: 'Teléfono',
-    align: 'left',
-    headerAlign: 'left',
-    flex: 0.6,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'status',
-    headerName: 'Estado',
-    align: 'left',
-    headerAlign: 'left',
-    flex: 0.5,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'rol',
-    headerName: 'Roles',
-    align: 'left',
-    headerAlign: 'left',
-    flex: 1,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'dateCreated',
-    headerName: 'Fecha de creación',
-    type: 'dateTime',
-    flex: 0.7,
-    sortable: false,
-    filterable: false,
-  },
-  {
-    field: 'actions',
-    headerName: 'Acciones',
-    align: 'center',
-    headerAlign: 'left',
-    flex: 0.5,
-    sortable: false,
-    filterable: false,
-  },
-];
