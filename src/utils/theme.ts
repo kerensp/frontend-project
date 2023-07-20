@@ -12,6 +12,10 @@ export const theme = createTheme({
       default: '#F3F5F7',
     },
     primary: {
+      main: '#FFFFFF',
+      contrastText: '#4F2D80',
+    },
+    secondary: {
       main: '#4F2D80',
     },
     success: {
@@ -32,6 +36,21 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiMenuItem: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: 'transparent',
+          },
+          '&:focus': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -46,6 +65,9 @@ export const theme = createTheme({
           style: {
             border: '1px solid #09378C33',
             backgroundColor: 'transparent',
+            opacity: 1,
+            fontSize: '15px',
+            height: '42px',
             '&:hover': {
               background: '#4F2D80',
               color: '#FFFFFF',
@@ -53,6 +75,16 @@ export const theme = createTheme({
           },
         },
       ],
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: '#4F2D80',
+          '&.Mui-checked': {
+            color: '#4F2D80',
+          },
+        },
+      },
     },
   },
 });
