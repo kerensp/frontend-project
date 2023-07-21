@@ -1,17 +1,22 @@
-import { Avatar, Typography, Button, } from '@mui/material';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Avatar, Typography, Button, IconButton, } from '@mui/material';
 import { GridRenderCellParams } from '@mui/x-data-grid';
 import { theme } from '../../utils';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import React from 'react';
 
 
-export const renderCellName = (rowData: GridRenderCellParams) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-    <Avatar sx={{ width: 36, height: 36 }} src={rowData.row.img} />
+export const NameCell = (rowData: GridRenderCellParams) => (
+  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <Avatar sx={{ width: '40px', height: '40px' }} src={rowData.row.img} />
     <Typography
       color='secondary'
       sx={{
         transitionDuration: '0.5s',
-        fontSize: '0.9rem',
+        fontSize: '14px',
         '&:hover': {
           fontFamily: 'cursive',
           textDecoration: 'underline',
@@ -62,3 +67,23 @@ export const renderCellForRols = (rowData: GridRenderCellParams) => (
     ))}
   </div>
 );
+
+
+interface ActionsCellProps {
+  id: number;
+  onDelete: (id: number) => void;
+}
+
+export const ActionsCell = ({ id, onDelete }: ActionsCellProps) => {
+
+  return (
+    <>
+      <IconButton aria-label="editar">
+        <EditIcon />
+      </IconButton>
+      <IconButton aria-label="eliminar" onClick={() => onDelete(id)}>
+        <DeleteIcon />
+      </IconButton>
+    </>
+  );
+};

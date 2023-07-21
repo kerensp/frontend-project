@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { DataGrid, GridCellParams, GridColDef, esES } from '@mui/x-data-grid';
 import { randomCreatedDate } from '@mui/x-data-grid-generator';
-import { renderCellName } from './renderCell';
+import { ActionsCell, NameCell, } from './renderCell';
 import { Box, Button, IconButton, InputBase, Paper, Typography, styled } from '@mui/material';
 import Row from '../../types/custom';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import CreateDate from './createDate';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const StyledDataGrid = styled(DataGrid)({
@@ -35,7 +33,6 @@ const StyledDataGrid = styled(DataGrid)({
   },
 });
 
-
 export default function BasicEditingGrid() {
 
   const [rows, setRows] = React.useState<Row[]>([
@@ -46,7 +43,7 @@ export default function BasicEditingGrid() {
       tel: '+53 55555555',
       status: 'Activo',
       rols: ['Usuario', 'Super Admin'],
-      dateCreated: new Date('2022-06-02T20:43:32'),
+      dateCreated: new Date('2022-06-02T20:43:00'),
     },
     {
       id: 2,
@@ -130,24 +127,6 @@ export default function BasicEditingGrid() {
     setRows(updatedRows);
   }, [rows]);
 
-  interface ActionsCellProps {
-    id: number;
-    onDelete: (id: number) => void;
-  }
-  
-  function ActionsCell({ id, onDelete: onDelete }: ActionsCellProps) {
-    return (
-      <>
-        <IconButton aria-label="editar">
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="eliminar" onClick={() => onDelete(id)}>
-          <DeleteIcon />
-        </IconButton>
-      </>
-    );
-  }
-
   const columns: GridColDef[] = [
     {
       field: 'name',
@@ -157,7 +136,7 @@ export default function BasicEditingGrid() {
       flex: 1,
       sortable: false,
       filterable: false,
-      renderCell: renderCellName,
+      renderCell: NameCell,
     },
     {
       field: 'email',
@@ -268,7 +247,10 @@ export default function BasicEditingGrid() {
         checkboxSelection
         disableColumnMenu
         disableColumnFilter
-        pageSizeOptions={[10, 25, 50, 100]}
+        initialState={{
+          pagination: { paginationModel: { pageSize: 10 } },
+        }}
+        pageSizeOptions={[10, 25, 100]}
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         disableRowSelectionOnClick
       />

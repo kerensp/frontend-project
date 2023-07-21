@@ -48,6 +48,7 @@ export default function CreateDate () {
           <RadioGroup
             aria-labelledby='demo-radio-buttons-group-label'
             name='radio-buttons-group'
+            color='blue'
             value={value}
             onChange={handleChange}>
             {buttons.map((buttons) => (
