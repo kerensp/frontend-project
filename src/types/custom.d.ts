@@ -2,7 +2,7 @@ declare interface Row {
     id: number; 
     name: string;
     email: string;
-    tel: string;
+    phone: string;
     status: string;
     rols: string[];
     dateCreated: Date;
