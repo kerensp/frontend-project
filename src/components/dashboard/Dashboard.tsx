@@ -12,6 +12,7 @@ import { AddButton } from './toolbar/AddButton';
 import SearchBar from './toolbar/SearchBar';
 import CreateDateButton from './toolbar/CreateDateButton';
 import { StyledDataGrid } from './StyledDataGrid';
+import TabsPanel from './toolbar/TabsPanel';
 
 export default function BasicEditingGrid() {
   const [rows, setRows] = React.useState<Row[] & GridRowsProp>([
@@ -217,6 +218,7 @@ export default function BasicEditingGrid() {
         <CreateDateButton />
         <AddButton onAddRow={handleAddRow} />
       </Box>
+      <TabsPanel />
       <StyledDataGrid
         rows={filteredRows}
         columns={columns}

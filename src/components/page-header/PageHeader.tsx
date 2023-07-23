@@ -8,7 +8,7 @@ export const PageHeader = () => {
   return (
     <AppBar position='static' sx={{ boxShadow: '0px 2px 3px #142F471F', opacity: 1 }}>
       <Toolbar>
-        <Box sx={{ flexGrow: 1 }}>{BreadcrumbsComponent}</Box>
+        <Box sx={{ flexGrow: 1 }}><BreadcrumbsComponent /></Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <IconButton sx={{ cursor: 'default' }}>
             <Typography

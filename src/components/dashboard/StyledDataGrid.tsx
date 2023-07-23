@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 export const StyledDataGrid = styled(DataGrid)({
   cursor: 'pointer',
+  marginTop: '30.6px',
   '& .MuiDataGrid-columnHeader': {
     backgroundColor: '#E8E8E8',
     color: '#2C2E35',
