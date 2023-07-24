@@ -11,11 +11,12 @@ export const RolsCell = (rowData: GridRenderCellParams) => (
         variant='contained'
         sx={{
           backgroundColor: '#F4F1F7' ,
+          opacity: 1,
           color: '#1A0A00',
-          gap: '9.83',
-          fontSize: '14px'
+          fontSize: '14px',
+          mr: '15.32px',
         }}>
-        <VerifiedIcon style={{color: '#4F2D80', width: '18px', height: '22px'}} />
+        <VerifiedIcon style={{color: '#4F2D80', width: '18px', height: '22px', marginRight: '9.83px'}} />
         {rol}
       </Button>
     ))}

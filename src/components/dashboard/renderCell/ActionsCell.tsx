@@ -13,10 +13,10 @@ export const ActionsCell = ({ id, onDeleteClick, onEditClick }: ActionsCellProps
   return (
     <>
       <IconButton aria-label='editar' onClick={() => onEditClick(id)}>
-        <EditIcon />
+        <EditIcon color='secondary' />
       </IconButton>
-      <IconButton aria-label='eliminar' onClick={() => onDeleteClick(id)}>
-        <DeleteIcon />
+      <IconButton aria-label='eliminar' onClick={() => onDeleteClick(id)} >
+        <DeleteIcon color='secondary' />
       </IconButton>
     </>
   );

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { GridCellParams, GridColDef, GridRowsProp, esES } from '@mui/x-data-grid';
-import { randomCreatedDate } from '@mui/x-data-grid-generator';
 import { Box, Typography } from '@mui/material';
 import Row from '../../types/custom';
 import { ActionsCell } from './renderCell/ActionsCell';
@@ -12,7 +11,9 @@ import { AddButton } from './toolbar/AddButton';
 import SearchBar from './toolbar/SearchBar';
 import CreateDateButton from './toolbar/CreateDateButton';
 import { StyledDataGrid } from './StyledDataGrid';
-import TabsPanel from './toolbar/TabsPanel';
+import { EmailCell } from './renderCell/EmailCell';
+import { DateCell } from './renderCell/DateCell';
+import { TabsPanel } from './toolbar/TabsPanel';
 
 export default function BasicEditingGrid() {
   const [rows, setRows] = React.useState<Row[] & GridRowsProp>([
@@ -23,7 +24,7 @@ export default function BasicEditingGrid() {
       phone: '+53 55555555',
       status: 'Activo',
       rols: ['Usuario', 'Super Admin'],
-      dateCreated: new Date('2022-06-02T20:43:00'),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
     {
       id: 2,
@@ -32,7 +33,7 @@ export default function BasicEditingGrid() {
       phone: '+53 55555555',
       status: 'Activo',
       rols: ['Usuario'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
     {
       id: 3,
@@ -41,7 +42,7 @@ export default function BasicEditingGrid() {
       phone: '+53 55555555',
       status: 'Bloqueado',
       rols: ['Usuario'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
     {
       id: 4,
@@ -50,7 +51,7 @@ export default function BasicEditingGrid() {
       phone: '-',
       status: 'Activo',
       rols: ['Usuario', 'Dtor. Unidad'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
     {
       id: 5,
@@ -59,7 +60,7 @@ export default function BasicEditingGrid() {
       phone: '-',
       status: 'Activo',
       rols: ['Usuario'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
     {
       id: 6,
@@ -68,7 +69,7 @@ export default function BasicEditingGrid() {
       phone: '+53 55555555',
       status: 'Bloqueado',
       rols: ['Usuario', 'Super Admin'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
     {
       id: 7,
@@ -77,7 +78,7 @@ export default function BasicEditingGrid() {
       phone: '+53 55555555',
       status: 'Bloqueado',
       rols: ['Usuario', 'Super Admin'],
-      dateCreated: randomCreatedDate(),
+      dateCreated: new Date('2022-02-06T04:30'),
     },
   ]);
 
@@ -140,9 +141,10 @@ export default function BasicEditingGrid() {
       headerName: 'Correo electrónico',
       align: 'left',
       headerAlign: 'left',
-      flex: 1,
+      flex: 0.8,
       sortable: false,
       filterable: false,
+      renderCell: EmailCell,
     },
     {
       field: 'phone',
@@ -180,16 +182,17 @@ export default function BasicEditingGrid() {
       align: 'left',
       headerAlign: 'left',
       type: 'dateTime',
-      flex: 0.7,
+      flex: 0.6,
       sortable: false,
       filterable: false,
+      renderCell: (params) => <DateCell value={params.value as Date} />
     },
     {
       field: 'actions',
       headerName: 'Acciones',
       align: 'left',
       headerAlign: 'left',
-      flex: 0.5,
+      flex: 0.4,
       sortable: false,
       filterable: false,
       renderCell: (params: GridCellParams) => (

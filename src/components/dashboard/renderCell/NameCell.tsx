@@ -1,11 +1,12 @@
 import { Avatar, Typography } from '@mui/material';
 import { GridCellParams } from '@mui/x-data-grid';
-import React from 'react';
 
-export const NameCell = ({ row: { name, img } }: GridCellParams) => {
+export const NameCell = ({ row: { name } }: GridCellParams) => {
+  const imgSrc = `https://robohash.org/${name}?size=40x40`;
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-      <Avatar sx={{ width: '40px', height: '40px' }} src={img} />
+      <Avatar sx={{ width: '40px', height: '40px' }} src={imgSrc} />
       <Typography
         color='secondary'
         sx={{
