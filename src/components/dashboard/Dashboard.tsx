@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { GridCellParams, GridColDef, GridRowsProp, esES } from '@mui/x-data-grid';
-import { Box, Typography } from '@mui/material';
+import { Box, Tab, Tabs, Typography } from '@mui/material';
 import Row from '../../types/custom';
 import { ActionsCell } from './renderCell/ActionsCell';
 import { NameCell } from './renderCell/NameCell';
@@ -13,7 +13,6 @@ import CreateDateButton from './toolbar/CreateDateButton';
 import { StyledDataGrid } from './StyledDataGrid';
 import { EmailCell } from './renderCell/EmailCell';
 import { DateCell } from './renderCell/DateCell';
-import { TabsPanel } from './toolbar/TabsPanel';
 
 export default function BasicEditingGrid() {
   const [rows, setRows] = React.useState<Row[] & GridRowsProp>([
@@ -82,6 +81,10 @@ export default function BasicEditingGrid() {
     },
   ]);
 
+  const [tabValue, setTabValue] = React.useState('Todos');
+  
+  const [filterValue, setFilterValue] = React.useState('');
+
   const handleAddRow = () => {
     const newRow: Row = {
       id: rows.length + 1,
@@ -94,8 +97,6 @@ export default function BasicEditingGrid() {
     };
     setRows([...rows, newRow]);
   };
-
-  const [filterValue, setFilterValue] = React.useState('');
 
   const handleFilterChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterValue(event.target.value);
@@ -116,7 +117,7 @@ export default function BasicEditingGrid() {
       if (row.id === id) {
         return {
           ...row,
-          editable: true
+          editable: true,
         };
       }
       return row;
@@ -130,7 +131,7 @@ export default function BasicEditingGrid() {
       headerName: 'Nombre de usuario',
       align: 'left',
       headerAlign: 'left',
-      maxWidth: 250, 
+      maxWidth: 250,
       flex: 1,
       sortable: false,
       filterable: false,
@@ -185,7 +186,7 @@ export default function BasicEditingGrid() {
       flex: 0.6,
       sortable: false,
       filterable: false,
-      renderCell: (params) => <DateCell value={params.value as Date} />
+      renderCell: (params) => <DateCell value={params.value as Date} />,
     },
     {
       field: 'actions',
@@ -200,6 +201,10 @@ export default function BasicEditingGrid() {
       ),
     },
   ];
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+    setTabValue(newValue);
+  };
 
   return (
     <div>
@@ -221,24 +226,49 @@ export default function BasicEditingGrid() {
         <CreateDateButton />
         <AddButton onAddRow={handleAddRow} />
       </Box>
-      <TabsPanel />
-      <StyledDataGrid
-        rows={filteredRows}
-        columns={columns}
-        checkboxSelection
-        disableColumnMenu
-        disableColumnFilter
-        autoHeight
-        initialState={{
-          pagination: { paginationModel: { pageSize: 10 } },
-        }}
-        pageSizeOptions={[10, 25, 100]}
-        localeText={esES.components.MuiDataGrid.defaultProps.localeText}
-        disableRowSelectionOnClick
-        rowHeight={62}
-        columnHeaderHeight={54}
-        editMode='row'
-      />
+      <>
+        <Tabs
+          sx={{
+            '& button': {
+              color: '#46464680',
+              fontSize: '17px',
+              textTransform: 'none',
+              marginLeft: '17px',
+              opacity: 1,
+            },
+            '& button:hover': { color: '#4F2D80' },
+          }}
+          value={tabValue}
+          onChange={handleTabChange}
+          textColor='secondary'
+          indicatorColor='secondary'>
+          <Tab label='Todos' sx={{ ml: '44px' }} value='Todos' />
+          <Tab label='Activos' value='Activos' />
+          <Tab label='Sin verificar' value='Sin verificar' />
+          <Tab label='Bloqueados' value='Bloqueados' />
+        </Tabs>
+        {tabValue === 'Todos' ? (
+          <StyledDataGrid
+            rows={filteredRows}
+            columns={columns}
+            checkboxSelection
+            disableColumnMenu
+            disableColumnFilter
+            autoHeight
+            initialState={{
+              pagination: { paginationModel: { pageSize: 10 } },
+            }}
+            pageSizeOptions={[10, 25, 100]}
+            localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+            disableRowSelectionOnClick
+            rowHeight={62}
+            columnHeaderHeight={54}
+            editMode='row'
+          />
+        ) : (
+          <p>{tabValue}</p>
+        )}
+      </>
     </div>
   );
 }

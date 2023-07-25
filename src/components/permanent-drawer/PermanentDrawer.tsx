@@ -27,7 +27,7 @@ const StyledButton = styled(Button)({
   paddingLeft: '23px',
   alignItems: 'left',
   gap: '.7rem',
-  '&:hover': {
+  '&:hover, &:focus': {
     background: '#4F2D80',
     color: '#FFFFFF',
   },

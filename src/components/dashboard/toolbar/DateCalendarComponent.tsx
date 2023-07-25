@@ -7,7 +7,7 @@ interface DateCalendarProps {
 }
 
 export const DateCalendarComponent: React.FC<DateCalendarProps> = ({ initialDate }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>((initialDate) || null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate || null);
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -25,9 +25,13 @@ export const DateCalendarComponent: React.FC<DateCalendarProps> = ({ initialDate
         sx={{
           color: '#000000DE',
           fontSize: '16px',
-          '& .MuiPickersDay-daySelected button': {
-            backgroundColor: '#113986',
-            color: '#fff',
+          fontFamily: 'Roboto',
+          '.MuiPickersDay-today':{
+            bgcolor: '#113986',
+            color: '#FFFFFF',
+            fontFamily: 'Roboto',
+            fontStyle: 'italic',
+            border: 'none'
           },
         }}
       />

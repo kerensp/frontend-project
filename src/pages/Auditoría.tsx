@@ -1,9 +1,8 @@
-import { Box, Paper } from '@mui/material';
+import { Paper } from '@mui/material';
 
 export const Auditoría = () => {
   return (
-    <Box
-      component={Paper}
+    <Paper
       sx={{
         m: '21px 18px 20px 303px',
         boxShadow: '0px 2px 3px #142F471F',
@@ -12,6 +11,6 @@ export const Auditoría = () => {
         height: '975',
       }}>
       Auditoría
-    </Box>
+    </Paper>
   );
 };
