@@ -15,6 +15,7 @@ export const RolsCell = (rowData: GridRenderCellParams) => (
           color: '#1A0A00',
           fontSize: '14px',
           mr: '15.32px',
+          pointerEvents:'none'
         }}>
         <VerifiedIcon style={{color: '#4F2D80', width: '18px', height: '22px', marginRight: '9.83px'}} />
         {rol}

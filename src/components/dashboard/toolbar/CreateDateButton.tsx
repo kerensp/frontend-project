@@ -1,9 +1,12 @@
-import { Button, FormControl, FormControlLabel, Menu, MenuItem, Radio, RadioGroup } from '@mui/material';
+import { Button, Menu, MenuItem, Radio } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import TuneIcon from '@mui/icons-material/Tune';
 import React, { useState } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendarComponent } from './DateCalendarComponent';
 
-const buttons = [
+const options = [
   'Hoy',
   'Últimos 7 días',
   'Últimos 30 días',
@@ -18,7 +21,7 @@ export default function CreateDateButton() {
 
   const [selectedOption, setSelectedOption] = useState('Rango');
 
-  const open = Boolean(menuAnchorEl);
+  const open = !!menuAnchorEl;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setMenuAnchorEl(event.currentTarget);
@@ -30,7 +33,7 @@ export default function CreateDateButton() {
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
-    setMenuAnchorEl(null);
+    handleClose();
   };
 
   return (
@@ -44,6 +47,8 @@ export default function CreateDateButton() {
         sx={{
           width: '240px',
           ml: '14.02px',
+          bgcolor: open ? '#4F2D80' : 'transparent',
+          color: open ? '#FFFFFF' : '#4F2D80',
         }}>
         Fecha de creación
       </Button>
@@ -51,20 +56,35 @@ export default function CreateDateButton() {
         anchorEl={menuAnchorEl}
         open={open}
         onClose={handleClose}
-        sx={{ width: '345px', height: '721px', boxShadow: '0px 5px 30px #0000001F', mt: '8.44px', borderRadius: '4px' }}>
-        <FormControl>
-          <RadioGroup
-            aria-labelledby='demo-radio-buttons-group-label'
-            name='radio-buttons-group'
-            value={selectedOption}
-            onChange={handleRadioChange}>
-            {buttons.map((buttons) => (
-              <MenuItem key={buttons} onClick={handleClose} sx={{ opacity: 1, fontSize: '18px', color: '#464646' }}>
-                <FormControlLabel sx={{gap: '14px'}} control={<Radio />} label={buttons} />
-              </MenuItem>
-            ))}
-          </RadioGroup>
-        </FormControl>
+        sx={{
+          boxShadow: '0px 5px 30px #0000001F',
+          borderRadius: '4px',
+          minwidth: '345px'
+        }}>
+        {options.map((option) => (
+          <MenuItem
+            key={option}
+            onClick={handleClose}
+            sx={{ opacity: 1, fontSize: '18px', color: '#464646', paddingTop: '1px', paddingBottom: '1px'}}>
+            <Radio
+              sx={{
+                color: '#11398633',
+                '&.Mui-checked': {
+                  color: '#113986',
+                  '& .MuiRadio-colorSecondary': {
+                    color: '#113986',
+                  },
+                },
+              }}
+              onChange={handleRadioChange}
+              checked={selectedOption === option}
+            />
+            {option}
+          </MenuItem>
+        ))}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendarComponent />
+        </LocalizationProvider>
       </Menu>
     </div>
   );
