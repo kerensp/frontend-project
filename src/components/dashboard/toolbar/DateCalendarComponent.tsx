@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { DateCalendar } from '@mui/x-date-pickers';
+import { makeStyles, createStyles } from '@mui/styles';
 
 interface DateCalendarProps {
   initialDate?: Date;
 }
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    selected: {
+      backgroundColor: '#113986',
+      color: '#fff',
+      '&:hover': {
+        backgroundColor: '#113986',
+        color: '#fff',
+      },
+    },
+  }),
+);
+
 export const DateCalendarComponent: React.FC<DateCalendarProps> = ({ initialDate }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>((initialDate) || null);
+  const classes = useStyles;
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date);
@@ -15,6 +30,10 @@ export const DateCalendarComponent: React.FC<DateCalendarProps> = ({ initialDate
 
   const handleClearClick = () => {
     setSelectedDate(null);
+  };
+
+  const customClasses = {
+    daySelected: classes.selected,
   };
 
   return (
@@ -30,6 +49,7 @@ export const DateCalendarComponent: React.FC<DateCalendarProps> = ({ initialDate
             color: '#fff',
           },
         }}
+        classes={customClasses}
       />
       <Button
         variant='contained'
