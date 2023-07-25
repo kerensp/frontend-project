@@ -1,16 +1,20 @@
-import { Paper } from '@mui/material';
-
 export const Auditoría = () => {
   return (
-    <Paper
-      sx={{
-        m: '21px 18px 20px 303px',
+    <div
+      style={{
+        width: '1600px',
+        height: '975px',
         boxShadow: '0px 2px 3px #142F471F',
-        overflow: 'hidden',
-        width: '1600',
-        height: '975',
+        margin: '21px 18px 20px 303px',
+        overflow: 'auto',
+        backgroundColor: '#FFFFFF',
+        fontSize: '70px',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
       Auditoría
-    </Paper>
+    </div>
   );
 };
